@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        Product: <select id="product">
+                <option value="tv">TV</option>
+                <option value="sofa">Sofa</option>
+                <option value="fridge">Fridge</option>
+                <option value="bed">Bed</option>
+             </select>
+         <label for="quantity">Quantity</label>
+         <input type="text" id="quantity"><br><br>
+
+         
+         
+        Cart<textarea readonly id="cart"></textarea><br>
+        Total Price<input type="text" readonly id="totalPrice">
+    </form>
+    <button type="submit" value="submit" onclick="solve()">Submit</button><br><br>
+    <button type="button" value="add" onclick="add()">Add</button><br>
+</body>
+<script>
+    let cartArr = [];
+    let numb = 0;
+    function add() {
+        let product = document.getElementById('product').value;
+        let quan = document.getElementById('quantity').value;
+        let msg = `${quan} X ${product}`;
+        cartArr.push(msg);
+        if(numb === 0){
+            document.getElementById('cart').value = cartArr; 
+        } else {
+            cartArr.length = cartArr.length - 1;
+            document.getElementById('cart').value = cartArr
+
+        }
+        return cartArr;
+    }
+
+    function solve() {
+        numb++;
+        let cartArr = add();
+        let total = 0;
+        
+        for (let i = 0; i < cartArr.length; i++) {
+            let splitEl = cartArr[i].split(' X ');
+            switch(splitEl[1]){
+                case 'tv': total += (+splitEl[0] * 1000.30);
+                    break;
+            }
+            
+            
+        }
+        console.log(total);
+        let totalPrice = document.getElementById('totalPrice');
+        totalPrice.value = total.toFixed(2);
+    }
+    
+</script>
+</html>
